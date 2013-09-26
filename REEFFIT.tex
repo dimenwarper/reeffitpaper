@@ -6,7 +6,7 @@
 \usepackage{graphicx}
 \usepackage[margin=0.75in]{geometry}
 \usepackage{setspace}
-\title{Multi-state RNAs, chemical mapping experiments, and the cocktail party problem}
+\title{Multi-state RNAs and the cocktail party problem}
 \author{Pablo Cordero, Wipapat Kladwang, Jeehyung Lee, Adrien Treuille, and Rhiju Das}
 \doublespacing
 \begin{document}
@@ -15,22 +15,24 @@
 \begin{abstract}
 The ability to change conformations is central to the functions of many non-coding RNAs, ranging from gene regulation to protein synthesis. 
 Fully understanding these changes requires characterization of these molecules' structural ensembles at equilibrium, but this problem has remained experimentally and computationally daunting. 
-To address this challenge, we present the RNA ensemble extraction from footprinting insights technique (REEFFIT), an algorithm that infers ensembles of secondary structures from multi-dimensional chemical mapping experiments, and the first cloud biochemistry platform for generating such data at negligible cost. 
-Inspired by the successes in blind source separation (the ``cocktail party problem'') we developed REEFFIT as a factor analysis model, with uncertainty estimation through non-parametric bootstrapping. 
-In a comprehensive computational benchmark of 20 simulated, noisy data sets for RNAs with 2 to 7 major states, REEFIT accurately recovers within error the population weights, secondary structures, and mutation-induced local perturbations corresponding to each state's contact map, without a set of structures given \textit{a priori}. 
-Experimentally, we show that REEFIT enables the dissection of secondary structures and weights for four RNA systems with single, two, and multiple states probed via the Eterna cloud biochemistry platform. In one case, a bistable hairpin, the REEFIT analysis of new chemical mapping data recover the structures and populations weights inferred from previous `gold-standard' NMR studies. 
+To address this challenge, we present the RNA ensemble extraction from footprinting insights technique (REEFFIT), an algorithm that infers ensembles of secondary structures from multi-dimensional chemical mapping experiments, and its integration with Eterna, a cloud biochemistry platform for RNA science. 
+Inspired by the successes in blind source separation (the ``cocktail party problem'') we developed REEFFIT as a factor analysis model. 
+In a computational benchmark of 20 simulated, noisy data sets for RNAs with 2 to 7 major states, REEFIT accurately recovers within error the population weights, secondary structures, and mutation-induced local perturbations corresponding to each state's contact map, without a set of structures given \textit{a priori}. 
+Experimentally, we show that REEFIT enables the dissection of secondary structures and weights for four RNA systems with single, two, and multiple states. 
+In one case, a bistable hairpin, the REEFIT analysis of new chemical mapping data recover the structures and populations weights inferred from previous `gold-standard' NMR studies. 
 These results establish REEEFIT and cloud-based multi-dimensional chemical mapping as a uniquely powerful and rapid approach to the RNA structural ensemble problem.
 \end{abstract}
 
 \section{Author Summary}
 
-In the past decades, it has become clear that RNA is a versatile biological macromolecule that is heavily involved in gene expression, gene regulation, and structural scaffolding. Most of these roles rely on the ability of RNA molecules to self-assemble into intricate structures.
+RNA is a versatile biological macromolecule that underlies important processes such as gene expression, gene regulation, and structural scaffolding throughout living systems. 
+Most of these roles rely on the ability of RNA molecules to self-assemble into intricate structures.
 However, it is an oversimplification to think that an RNA molecule folds just into one structure. 
-Intense theoretical and experimental work has established that RNA is a dynamic structural entity that can adopt multiple conformations: an ensemble of structures that are present at equilibrium and may be of functional relevance. 
-Although the computational study of RNA structural ensembles has become a classical subject in computational biology, the verification and dissection of these ensembles experimentally is still limited due to the size, resolution, and infrastructure constraints of state-of-the-art experimental methods such as magnetic resonance and X-ray scattering. 
-We propose that coupling RNA chemical mapping or footprinting, an already widely used technique to probe RNA structure, to external perturbations, such as mutations in the case of mutate-and-map (M$^2$) experiments, can become a powerful experimental tool to probe ensembles at the single-nucleotide level. 
-Inspired in the source-separation problem in signal processing and aided by public chemical mapping data sources and current computational tools for de novo secondary structure ensemble calculation we developed REEFFIT, a factor analysis technique that can calculate the secondary structural ensemble that best fits the observed patterns of a multi-dimensional mapping experiment. 
-We expect REEFFIT to be the first of a new generation of tools that will take advantage of RNA chemical mapping data in a more fundamental level: by extracting the underlying structural principles governing the observed signals to produce accurate secondary, and perhaps even tertiary, structural hypotheses
+Intense theoretical and experimental work has established that RNA is a dynamic structural entity that can adopt multiple conformations: an ensemble of structures that are present at equilibrium and whose intercoversions are functionally critical. 
+Although computational algorithms for predicting RNA structural ensembles are available, the verification and dissection of these ensembles experimentally is still limited due to the size, resolution, and infrastructure constraints of state-of-the-art methods such as magnetic resonance and X-ray scattering. 
+We show here that coupling RNA chemical mapping, an already widely used technique to probe RNA structure, to systematic mutagenesis (the mutate-and-map or M$^2$ strategy) provides a powerful experimental tool to probe ensembles at the single-nucleotide level. 
+We leveraged algorithmic frameworks for the source-separation problem in signal processing and aided by public chemical mapping data sources and new cloud-based technology for synthesis and probing RNA structure online to develop REEFFIT. This factor analysis technique calculates the secondary structural ensemble that most parsimoniously fits the observed patterns of a multi-dimensional mapping experiment. 
+We expect REEFFIT to be the first of a new generation of tools that will take advantage of RNA chemical mapping data at its most fundamental level: by extracting the underlying structural principles governing the observed signals to produce accurate secondary, and perhaps even tertiary, structural hypotheses
 
 
 \section{Introduction}
@@ -39,143 +41,106 @@ RNA is a versatile biological macromolecule that is heavily involved in gene exp
 Many of these roles rely on the ability of RNA molecules to self-assemble into intricate three-dimensional structures. 
 Furthermore, intense theoretical and experimental work has established that interconversion between multiple structures is a pervasive property of natural and engineered RNAs. 
 Riboswitches and ribozyme can fold into several states to detect and respond to a small molecule  \cite{Mandal2004,Winkler2003}; catalyze self-splicing reactions \cite{Cate1996,Kennedy2013,Soukup1999}; carry out protein translation \cite{Ban2000,Nissen2000, Muth2000}; and activate logical circuits in cells \cite{Win2008,Lucks2008}. 
-Dissecting and re-engineering these transitions depends on the presence of multiple states in the RNA's structural ensemble and their respective equilibrium fractions \cite{Reining2013}. 
-Determination of structural ensembles, as opposed to single structures, is therefore critical for understanding the mechanisms of natural non-coding RNA \cite{Reining2013,Villordo2010}, and is missing for the vast majority of such molecules.  
+Dissecting and re-engineering these transitions depends on modeling the multiple states of an RNA's structural ensemble and their respective equilibrium fractions \cite{Reining2013}. 
+Determination of structural ensembles, as opposed to single structures, is therefore critical for understanding the mechanisms of natural non-coding RNA \cite{Reining2013,Villordo2010}.
+However, data for these ensembles are missing for the vast majority of RNAs.  
 
-From the computational viewpoint, structural ensembles have been thoroughly studied using classic dynamic programming techniques devised in the past three decades \cite{McCaskill,Ding2005b}. 
+From a computational viewpoint, structural ensembles have been thoroughly studied using classic dynamic programming techniques devised in the past three decades \cite{McCaskill,Ding2005b}. 
 However, the practical applications of  these methods have been mainly limited to refining minimum free energy secondary structure predictions. 
-Although in theory bigger challenges such as riboswitch design and detection of pathogenic mutations can be addressed with these tools, the lack of experimental data that can validate the estimated structural ensembles undermines the confidence in the results. 
+In theory, bigger challenges such as riboswitch design and detection of disease-causing mutations can be addressed with these tools, but the lack of experimental data that can validate the estimated structural ensembles has hindered progress in RNA design. 
 Indeed, there are few experimental techniques that can probe structural ensembles. 
-State-of-the-art methods that can capture structural dynamics such as nuclear magnetic resonance (NMR) \cite{Bothe2011} and small angle X-ray scattering (SAXS) \cite{Russell2002,Wang2009} require costly infrastructure, focused technical expertise, and are limited to small RNA chains or lack nucleotide-level resolution. 
+State-of-the-art methods that can capture structural dynamics such as nuclear magnetic resonance (NMR) \cite{Bothe2011} and small angle X-ray scattering (SAXS) \cite{Russell2002,Wang2009} require costly infrastructure and focused technical expertise, are limited to small RNA chains, or lack nucleotide-level resolution. 
 Chemical mapping or footprinting is a widely-used biochemical technique in which the RNA is exposed to chemical agents that modify unstructured parts of nucleic acids \cite{Mortimer2007,Tijerina2007}. 
-These chemical modifications can be detected through a reverse transcription assay whose cDNA can be mapped back to the RNA sequence using electrophoretic separation or deep sequencing \cite{Mitra2008,Lucks2011}. 
-Chemical mapping can probe molecules in solution at nucleotide resolution at least 200 nucleotides at a time, and has been used to probe entire viral genomes \cite{Wilkinson2008,Watts2009}. 
+These chemical modifications can be detected through a reverse transcription assay in which cDNA fragments can be mapped back to the RNA sequence using electrophoretic separation or deep sequencing \cite{Mitra2008,Lucks2011}. 
+Chemical mapping can probe molecules in solution at nucleotide resolution at least 200 nucleotides at a time, and has long been used to probe entire ribosomes and viral genomes \cite{Noller, Wilkinson2008,Watts2009}. 
 The ability to perform this technique in high-throughput allowed us to couple it with systematic mutagenesis: a mutate-and-map (M$^2$) strategy that can be used to infer the base-paring partners of each nucleotide in an RNA \cite{Kladwang2011,Kladwang2011f}. 
 In these data we have observed that some single-nucleotide mutants have dramatically different chemical mapping profiles in all RNAs studied by M$^2$ to date, suggesting that these alternative states are prevalent throughout nature.
 
-After proper quantification, chemical mapping yields a reactivity profile: one value per nucleotide correlated with how unstructured it is \cite{Mitra2008,Yoon2011}. 
-If there are multiple conformations sampled by the RNA, the chemical reactivity profile can be seen as the linear combination of the structures present in the RNA's structural ensemble (Figure ~\ref{fig:statmodelfig}A).
+After proper quantification, chemical mapping yields a reactivity profile, one value per nucleotide\cite{Mitra2008,Yoon2011}. 
+If there are multiple conformations sampled by the RNA, the chemical reactivity profile will be the linear combination of the structures present in the RNA's structural ensemble (Figure ~\ref{fig:statmodelfig}A).
  All the information about the ensemble is projected into the one-dimensional profile. 
  Due to this projection, recovering the individual reactivity profiles for each state in the ensemble is impossible without further information. 
  However, if the structural ensemble could be perturbed and remeasured enough times, we would then have enough data to estimate it. 
- We can argue that this is exactly what is done in M$^2$ experiments: for the most part, each mutant's reactivity profile is the result of a different linear combination of the same structures present in the wild type (Figure ~\ref{fig:statmodelfig}B) in addition to some mutant-specific structures. 
+ Here we accomplish these perturbations through systematic mutagenesis.
+ We recently introduced a mutate-and-map (M$^2$) strategy for RNA structure, whereby a library of single-nucleotide mutants of the RNA sequence of interest is chemically mapped. 
+ The signals of resulting from the release of base-pairing partners of the mutated residue in some of the mutants approximate the RNAs ``contact map'' and can be used to guide secondary structure algorithms.
+ Other mutations induce drastic changes in secondary structure, stabilizing structures that could potentially be excited states in the wild type ensemble.
+ Therefore, we can argue that each mutant's reactivity profile in M$^2$ experiments is the result of a linear combination of the same structures present in the wild type (Figure ~\ref{fig:statmodelfig}B) as well as mutant-specific structures. 
+ 
  The challenge to recover each state's reactivity profile and its weights can be cast as a source separation problem, a classical topic in signal processing \cite{Attias1999,Cardoso1998}. 
  The source separation problem is often described by the ``cocktail party'' analogy \cite{Cardoso1998}. 
  In the analogy, we are placed in a cocktail party with several people speaking at the same time and are challenged with finding the waveforms corresponding to the speech audio of each of the attendees, as well as their relative volumes, given audio recordings by microphones located in different corners of the room. 
  When the number of microphones matches or exceeds the number of attendees, the mixed sources can be recovered robustly using automated methods. 
- Recovering RNA structural ensembles from chemical mapping data is analogous to this problem. 
- Here, each attendee corresponds to a particular structure and each microphone recording to the observed reactivity profile of each mutant. 
+ Recovering RNA structural ensembles from M$^2$ data is analogous: each attendee corresponds to a particular structure and each microphone recording to the observed reactivity profile of each mutant. 
  Using this insight, we developed a method that models M$^2$ data as a linear combination of structures to estimate the structural ensembles of the wild type and all the single nucleotide mutants in the experiment. 
  This analysis, which we have named RNA ensemble extraction from footprinting insights technique (REEFFIT), takes advantage of the variation in the reactivity profiles of each mutant caused by the stabilization and destabilization of structures in the ensembles induced by the mutation. 
 
-REEFFIT uses a factor analysis framework to model the reactivity profile of each mutant in terms of the structures in the ensemble: it finds both the expected reactivity profile of each structure and a convex combination of weights that best model the data as well as sequence-position-wise noise levels.
-To achieve this, we modify the standard, gaussian factor analysis to include heterogeneous, non-gaussian priors for the expected reactivities that depend on both structure and sequence position. 
+REEFFIT uses a factor analysis framework to model the reactivity profile of each mutant in terms of the structures in the ensemble: it finds the expected reactivity profile of each structure, the convex combination of weights that best model the data, and sequence-position-wise noise levels.
+To achieve this, we have generalized the standard, gaussian factor analysis to include heterogeneous, non-gaussian priors for the expected reactivities that depend on both structure and sequence position. 
 Local perturbations due to mutations that cannot be modeled by large structural rearrangements, such as the release of base-pairs induced by the single nucleotide change, are also included in the statistical model.
-The resulting model is more difficult to fit to the data than gaussian factor analysis since it does not accept closed-form solutions for the some of the steps in the fitting algorithm and a stochastic simulation bayesian inference method must be employed.
+The resulting model is more difficult to fit to the data than gaussian factor analysis since it does not accept closed-form solutions for some of the steps in the fitting algorithm and a stochastic simulation bayesian inference method must be employed.
 
-In case the set of structures contained in the ensemble is not known \textit{a priori}, REEFFIT makes an educated guess by clustering the suboptimal structures predicted for the mutants, picking the best representative of each cluster given the data, and subsequently adding more structures that would decrease the value of an information score. 
+REEFFIT is furthermore instrumentated to handle cases in which the set of structures in the ensemble is not known \textit{a priori}. REEFFIT forms an initial set of structures by clustering the suboptimal structures predicted for the mutants, picking the best representative of each cluster given the data, and subsequently adding more structures that improve the value of an information score which penalized the inclusion of too many structures.
 
-Because of its underlying general factor analysis framework, REEFFIT is easily extensible and provides a basis for future modeling of chemical mapping data. 
-Importantly, REEFFIT is not limited to M$^2$ experiments: the only requirements are that all reactivity profiles in the dataset are perturbed versions of approximately the same ensemble of structures and that the number of profiles is at least as large as the number of the most prevalent structures in the ensemble. 
-It is therefore theoretically possible to use sources of perturbations other than mutations such as changing ionic concentrations  \cite{Das2010}, temperature, or concentration of small molecule binders \cite{Kladwang2011f}, or macromolecule partners \cite{Kladwang2010}.
-
-We give a detailed description of the statistical framework and technique below. 
-Before tackling larger, biological systems, we report a proof of concept of the technique by validating our method using simulated and experimental data. 
+[ THIS NEEDS TO BE REVISITED: The purpose of this manuscript is to give a detailed description and validation of the statistical framework and technique. 
+We report a proof of concept of the technique by validating our method using simulated and experimental data. 
 For our experimentally probed systems, we analyze previously published model sequences that fold into stable and bistable hairpins, as well as newly designed systems with more heterogeneous ensembles containing multiple excited states.
-For the purpose of clarity and following the example of others when introducing new methodologies \cite{Ma2006} [NEED OTHER CITATIONS, WHAT OTHER MODEL HAIRPIN PUBLICATIONS ARE THERE?], we use the thorough analyses on these small systems to present and discuss the technique in order to lay a foundation for further explorations of biological RNAs of interest. 
+For the purpose of clarity and following the example of others when introducing new methodologies \cite{Ma2006} [NEED OTHER CITATIONS, WHAT OTHER MODEL HAIRPIN PUBLICATIONS ARE THERE?], we use the thorough analyses on these small systems to present and discuss the technique in order to lay a foundation for further explorations of biological RNAs of interest. --- NEED TO ADD CLOUD STUFF, WHERE DOES IT GO?] 
 
 
 \section{Results}
-\subsection{The REEFFIT statistical model}
-Given a set $S =  \{ S_1, S_2, …, S_{t} \}$ of secondary structures with reactivity profiles $D = \{ D_{1}, D_{2}, ..., D_{t} \}$, REEFFIT models the observed reactivity profiles, $D^{obs}$ as linear, convex combinations of the reactivity profiles of $D$ plus white noise (see Figure ~\ref{fig:statmodelfig}B). 
-$D$ is a set of hidden variables since we do not know what the isolated reactivity profiles of each structure are. 
-However, we can impose a prior on each of these hidden profiles depending on their secondary structures. 
-Each $D_{s}$ can be decomposed into a set of univariate random variables $D_{si}$, one for each nucleotide $i = 1, 2, ..., n$, where $n$ is the number of nucleotides (here and throughout the text, $D$ will be treated as an $m \times n$ matrix, with rows denoted as $D_{s}$ and columns as $D_{i}$, where $s$ is a structure index and $i$ is a position index). 
-Because low and high chemical reactivities are correlated with structured and unstructured states, a reasonable prior would force $D_{si}$ to be small if $i$ is paired in structure $S_s$ and higher if it is unpaired. To get distributions of the reactivities of paired and unpaired nucleotides, we compiled all the SHAPE reactivity data in the RNA Mapping Database (RMDB) \cite{Cordero2012} of RNAs with known crystallographic structure and modeled these distirbutions in terms of mixtures of gamma distributions as described previously \cite{Cordero2012a}. 
-Let $RMDB_U$ and $RMDB_P$ be the modeled RMDB unpaired and paired distributions respectively, we can then define a prior likelihood for $D_{s}$ as: 
-\begin{align}
-  &\begin{aligned}
-RMDB_{s}(x) &= \prod_i (RMDB_U(x) \mbox{I}\left[i \mbox{ is paired in } S_s\right]\\ 
-                &+ RMDB_P(x) \mbox{I}\left[i \mbox{ is unpaired in } S_s\right])
-  \end{aligned}
-\end{align}
-
-where $\mbox{I}$ is the indicator function. Because these distributions were estimated using SHAPE data, any statistical model based on them will only work properly in SHAPE-based chemical mapping experiments. 
-To handle other modifiers, e.g. dimethyl sulfate (DMS), $RMDB_P$ and $RMDB_U$ would be replaced with the respective estimated distributions using unpaired and paired data of that modifier \cite{Cordero2012a}. 
-After defining our priors for each structure profile, we can write the REEFFIT model (see also Figure ~\ref{fig:statmodelfig}):
-
-\begin{align}
-  &\begin{aligned}\label{reeffit_model}
-    D^{obs}_{i} &= WD_{i} + \epsilon_{i}\\
-    D_{s} &\sim RMDB_{s} \\
-    \epsilon_{i} &\sim \mathcal{N}(0, \Psi_{i}I_{m}) \\
-    \sum_{s}^{t} W_{js} &= 1, \forall j = 1, …, m\\
-  \end{aligned}
-\end{align}
-
-
-Here, $D^{obs}_{i}$ and $D_{i}$ are the column vectors of $D$ indexed by nucleotide position, $W_{js}$ is the weight for the profile of structure $s$ in the observed profile $j = 1 , 2, ..., m$ with $m$ the number of mapping profiles in the experiment, and $\epsilon_{i}$ is centered white noise with a diagonal covariance matrix $\Psi_{i}I_{m} \in \Re^{m \times m}$ where $\Psi_{i}$ is a scalar and $I_{m}$ is the identity matrix of $\Re^{m \times m}$. 
-Our model differs from the standard factor analysis model \cite{Ghahramani1996} in two ways. 
-First, we have $n$ rather than one $\epsilon$ variable to capture experimental noise. 
-This derives from our observations that different sequence positions have different experimental error distributions depending on the intensity of the reactivity and proximity to the beginning and end of the sequence \cite{Kladwang2011}. 
-Second, different sequence positions are assigned different prior distributions that depend on the pairing state of each structure in the model. 
-It is important to note that here, as in standard factor analysis, all covariance matrices for the noise must be diagonal, that is, the measurements are independent of each other \cite{Ghahramani1996,Rubin1982}. 
-This assumption holds in the case of multiple chemical mapping measurements, since each measurement does not affect the others in any way.
-
-There is no closed form maximum likelihood estimation for this model and therefore an expectation maximization (EM) algorithm is typically used to obtain expected values for the hidden variables (in our case, $D$), and maximum likelihood estimates for $W$ \cite{Ghahramani1996,Rubin1982}. 
-In standard factor analysis, the E-step can be obtained in closed form by calculating the sufficient statistics for the likelihood function, which happen to be the first two moments of the posterior distribution of $D$: $E[D | D^{obs}]$ and $E[DD^T | D^{obs}]$. 
-Unfortunately, the non-gaussian form our priors for each $D_{s}$ precludes us from having a closed form for these statistics and we must calculate them using Markov Chain Monte Carlo (MCMC) [see Materials and Methods]. 
-For the M-step, closed form solutions depending on these sufficient statistics exist for $W$. 
-Additionaly, we incorporate convex combination constraints on $W$ by casting it as a quadratic problem and solving numerically (see Materials and Methods).
-
-\subsection{Selecting the structures for the model}
-Most of the time it is not clear \textit{a priori} what set of structures would best model the data. 
-To select a good starting set of structures, we can calculate a set of suboptimal structures for each mutant in the M$^2$ experiment. 
-We then proceed to cluster the structures using hierarchical clustering with a probabilistic distance metric and a Calinski-Barabasz cutoff (see Materials and Methods and Figure ~\ref{fig:structselectfig}A). 
-Taking the structures in ensembles of all mutants allows for a broader search of structures than may be needed in to fully explain the data. 
-We select structure medoids for each cluster by taking the one that is found to be most stabilized in the wild type sequence, according to the RNAstructure package. 
-Finally, structures are scored by their maximum observed stability in all mutants and are added in a greedy manner by minimizing the Akaike information criterion which penalizes model complexity to avoid overfitting \cite{Akaike1987} (see Materials and Methods and Figure ~\ref{fig:structselectfig}B).
-
 
 \subsection{Simulated data evaluations: an \textit{in silico} benchmark}
 Evaluating REEFFIT's performance is challenging since we have to simultaneously compare the weights of the predicted and data-generating structures and also, at the same time, to assess the model's goodness of fit to the data. 
-We therefore chose to first carry out an extensive benchmark of REEFFIT on simulated data for which accuracy estimates would be ambigouus. 
-This benchmark consisted of representative RNA sequences for 20 Rfam families \cite{Gardner2011} that include microRNAs, small nucleolar RNAs, and viral sequences. 
-We simulated M$^2$ chemical mapping data using sets of structures drawn from the suboptimal structures of each RNA (see Materials and Methods). 
-We then ran our structure set selection algorithm and fitted the factor analysis model given in (~\ref{reeffit_model}) to the simulated data. 
+We therefore chose to first carry out a benchmark to test REEFFIT on simulated data for which accuracy estimates would be unambigouus. 
+This simulated benchmark consisted of representative RNA sequences for 20 Rfam families \cite{Gardner2011} that include microRNAs, small nucleolar RNAs, and viral sequences. 
+We simulated M$^2$ chemical mapping data using sets of structures drawn from the suboptimal structures of each RNA (see Materials and Methods)
+The simulated datasets are shown in Figures S1B to S20B, one for each test cases.
+Here and throughout the article we show the quantified reactivity data for M$^2$ experiments.  
+Each simulated dataset in our benchmark was designed to test different scenarios that REEFFIT may encounter in real datasets and included systems with various degrees of thermodynamic stability: from simple systems with ensembles dominated by one structure (e.g. the 3$^{\prime}$ conserved hairpin of the eel long interspersed element UnaL2 of family RF00436) to multi-stable RNAs containing multiple excited states (such as the small nucleolar RNA sR4 of family RF01125).
+Test cases with minor variations on one predominant structure across most mutants included the alfalfa mosaic virus RNA 1 5$^{\prime}$ UTR stem-loop (RF00196), the 3$^{\prime}$ conserved hairpin of the eel long interspersed element UnaL2 (RF00436), and the microRNA mir-572 sequence (RF01020).
+Although we used 3 and 4 structures to simulate these datasets (for RF00196 and RF00436, RF01020 respectively), in every case all states are minor variations of one structured hairpin (see Figures X, Y , and Z) that is evident by the punctate ``cross-diagonal'' pattern induced by the mutations.
+The small cajal body specific RNA 16 (RF00424) and  the leader sequence of the ribosomal protein L13 (RF00555), both simulated with 3 structures, provided test cases with a similarly predominant structure motif but with more pronunced structural variation, simulating a scenario where a simple one-helix system folds into a rich ensemble of structures with small differences.
+Extreme cases of this scenario were portrayed in the the 4-state microRNA mir-472 (RF01020) and the 3-state avian HBV RNA encapsidation signal epsilon (RF01313).
+Other test cases included systems in which the wild type sequence folds into one predominant structure, but the single-nucleotide mutants alternate between 2 to 4 states, and were designed to test whether REEFFIT could accurately estimate the ensembles of the wild type sequence as well as all mutants.
+These test cases included the class I RNA from \textit{D. discoideum} (RF01414, 2 states) and the small nucleolar sR40 (RF01297, 2 states), SNORD116 (RF00108, 3 states), SNORD64 (RF00570, 3 states), and snoR4a (RF01301, 4 states).
+Challenging test cases of RNAs with multiple excited states and very sensitive to mutations included U7 nuclear RNA (RF00066), and the hairpin ribozyme (RF00173), both with 5 structures, as well as the 7-state small nucleolar RNA sR4 (RF01125).
+Some of the datasets were also designed to test REEFFIT's modeling of the mutation-induced local perturbations. 
+For example, in RF00436 the mutation perturbations can be clearly seen as punctate patterns in the simulated data.
+These local patterns disappear when most of the mutants change structure drastically, as in RF00066.
+As a first test of our ensemble extraction method, we used REEFFIT to fit the data to our statistical model with the structures that were used to generate the data (see Materials and Methods). 
+Goodness of fit metrics for factor analysis have been extensively studied in psychometrics under the umbrella of structural equation modelling \cite{Schreiber2006,Marsh1988,Babyak2010}. 
+In line with these studies, we report $\chi^2/df$ and root mean square error of approximation (RMSEA) as goodness of fit metrics for the fitted models to each simulated dataset. 
+The general low RMSEA values and $\chi^2/df$ indicated that the structures proposed by REEFFIT fit the data well: no test case had a $\chi^2/df$ value over 2 (see Table X).
 
-Due to the complexity of evaluating both structure accuracy and the weights on these states, we chose to evaluate REEFFIT's predictions using several metrics. 
-First, we compared the structures that REEFFIT inferred to the ones used to generate the data. 
+We then tested the full REEFFIT pipeline by running our structure set selection algorithm and fitted the resulting model to the data. 
 Because REEFFIT uses a conservative information score to obtain a set of structures to model the data, in many cases it inferred less structures than those used to generate the data. 
 In these cases (such as the RF01125 sequence, see Table ~\ref{insilicobenchmark} and Figure ~\ref{fig:insilicofig}) the generating structures are too similar to each other and can be accounted for by taking just one of the structures as a representative. 
 Because REEFFIT selects the states in the ensemble from clusters of a multitude of suboptimal structures, we can compare the weights of these extra generating structures to our predicted ones by grouping them according to REEFFIT's clusters. 
 Therefore, instead of comparing predicted and original structures, we compare predicted structures, that serve as representatives of each cluster, and clusters of original structures. 
 The structure weights of each group of original structures is then defined to be the sum of the weights of all the structures in each group. 
-A similar evaluation scheme can be taken in the case when there are more predicted structures than the generating structures (such as . 
+A similar evaluation scheme can be taken in the case when there are more predicted structures than the generating structures (such as RF00108). 
 In these cases we compare predicted structures with clusters of generating structures. In the same way as before, the weight for each cluster of predicted structures is the sum of the weights of the generating structures in that cluster. 
-Second, we assesed the goodness of fit of the model. 
-Goodness of fit metrics for factor analysis have been extensively studied in psychometrics under the umbrella of structural equation modelling \cite{Schreiber2006,Marsh1988,Babyak2010}. 
-In line with these studies, we report $\chi^2/df$ and root mean square error of approximation (RMSEA) as goodness of fit metrics for the fitted models to each simulated dataset. 
-The general low RMSEA values and $chi^2/df$ indicated that the structures proposed by REEFFIT fit the data well: only the RF00108 sequence, the only case that was modeled with more structures than it was generated with, gave a $\chi^2/df$ value over 2.  
-Using this validation scheme, REEFFIT is able to recover the ensemble weights within one standard deviation in systems with 2 to 5 structures on an average of 47\% of the time (see Table ~\ref{insilicobenchmark}). 
+When executing the full pipeline without the structures known \textit{a priori} REEFFIT again yielded general low RMSEA values and $\chi^2/df$: only the RF00108 sequence, the only case that was modeled with more structures than it was generated with, gave a $\chi^2/df$ value over 2.  
+Using this validation scheme, REEFFIT was able to recover the ensemble weights within one standard deviation in systems with 2 to 5 structures on an average of 47\% of the time (see Table ~\ref{insilicobenchmark}). 
 Furthermore, all of REEFFIT's selected structures recovered the helix topologies of at least on of the original structures in 15 of the 20 test cases.
-For RF01414, a two-structured system whose mutants alternate between two states, REEFFIT is able to recover the structural ensemble at helix-wise accuracy exactly and their respective fractions match the original weights within one standard deviation 67\% of the time.
-REEFFIT captures the main aspects of the RF01414 ensemble: it predicts that the wild type is predominantly in one state while the rest of the mutants switch back and forth between two structures.
+For RF01414, a two-structured system whose mutants alternate between two states, REEFFIT was able to recover the structural ensemble at helix-wise accuracy exactly and their respective fractions match the original weights within one standard deviation 67\% of the time.
+REEFFIT captured the main aspects of the RF01414 ensemble: it predicted the wild type sequence to fold predominantly in one state while the rest of the mutants switch back and forth between two structures.
 The local perturbations, apparent in the shared helices located at the 5' and 3' ends, are also adequately captured in the fit.
-The RF01274 test case provides a more complicated ensemble. It is comprised of 4 structures with two main helices shared in three of the states. 
-REEFFIT models this ensemble using only two structures, which approximately match two of the original states.
-However, even without the two additional structures, REEFFIT is able to estimate the ensemble weights with high confidence (80\% of the original weights, grouped into two clusters, were at one standard deviation from the predicted weights) and capture the mutation-induced switches and local perturbations of the helices shared by the states.
-An even more complex ensemble is given by RF01125. A total of seven structures form this ensemble: 4 of them are variations on a two helix system, while the remaining three have almost no helices in common (see Figure ~\ref{fig:insilicofig}A). 
-REEFFIT models this dataset with 4 structures: three of which correspond, with minor variations, to the three disparate structures, and a remaining structure containing the two helices shard by 4 of the original states.
-Therefore, REEFFIT groups 4 structures into one, and is able to recover the weights reasonably well (64\% of the original weights, grouped into two clusters, were at one standard deviation from the predicted weights) (Figure ~\ref{fig:insilicofig}B). 
-Interestingly, the $chi^2/df$ value for the fit is high (3.6), indicating that not all features were captured by the model.
-Indeed, the $chi^2/df$ value serves a conservative indicator to detect when REEFFIT was unable to adequately select the the structures and/or fit the data properly. 
+The RF01274 test case provided a more complicated ensemble, comprised of 4 structures with two main helices shared in three of the states. 
+REEFFIT modeled this ensemble using only two structures, which approximately match two of the original states.
+However, even without the two additional structures, REEFFIT was able to estimate the ensemble weights with high confidence (80\% of the original weights, grouped into two clusters, were at one standard deviation from the predicted weights) and capture the mutation-induced switches and local perturbations of the helices shared by the states.
+An even more complex ensemble was given by RF01125. A total of seven structures form this ensemble: 4 of them are variations on a two helix system, while the remaining three have almost no helices in common (see Figure ~\ref{fig:insilicofig}A). 
+REEFFIT modeled this dataset with 4 structures: three of which correspond, with minor variations, to the three disparate structures, and a remaining structure containing the two helices shard by 4 of the original states.
+Therefore, REEFFIT grouped 4 structures into one, and was able to recover the weights reasonably well (64\% of the original weights, grouped into two clusters, were at one standard deviation from the predicted weights) (Figure ~\ref{fig:insilicofig}B). 
+Interestingly, the $\chi^2/df$ value for the fit is high (3.6), indicating that not all features were captured by the model.
+Indeed, the $\chi^2/df$ value serves a conservative indicator to detect when REEFFIT was unable to adequately select the the structures and/or fit the data properly. 
 For example, for a two-structured system with one predominant structure such as RF01297, REEFFIT was able to recover the structures in the ensemble exactly at helix-wise accuracy, but failed to recover its weights robustly (only 9\% of the original weights were at one standard deviation from the predicted weights). 
 Conversely, in RF00066, REEFFIT was not able to recover any of the original structures helix-wise, but is evaluated favorably when assessing weight recovery accuracy (73\% of the grouped weights match the original weights within one standard deviation).
-In this and other cases where REEFFIT fails either to confidently recover either the structures in the ensembles or their respective weights, high $chi^2/df$ and RMSEA values serve as indicators for model mis-fitting and help guard against type I errors.
+In this and other cases where REEFFIT failed either to confidently recover either the structures in the ensembles or their respective weights, high $\chi^2/df$ and RMSEA values served as indicators for model mis-fitting and helped guard against false ensemble inference (type I errors).
 
 All of the analyses described above were performed using the RNAstructure package to obtain starting weights for the fits (see also Materials and Methods). 
-REEFFIT, like other factor analysis methodologies, uses a numerical EM approach to maximize the likelihood function and is only guaranteed to find a local maximum -- a likelihood function that is highly non-convex with multiple local maximums, the method is sensitive to initial conditions.
+REEFFIT, like other factor analysis methodologies, uses a numerical EM approach to maximize the likelihood function and is only guaranteed to find a local maximum. If the likelihood function that is highly non-convex with multiple local maximums, these methods are sensitive to initial conditions.
 Therefore, to assess robustness to initial conditions, we repeated our analyses on the Rfam benchmark using ViennaRNA package to calculate the initial weights for each structure.
 The fits given by ViennaRNA were in agreement with the RNAstructure results using the same structures to fit the data.
 We also tried using ViennaRNA to select the structures in each tested ensemble. 
@@ -191,9 +156,10 @@ The model hairpin systems used here have been previously studies by us and other
 We tested our method on chemical mapping data using the two main high-throughput read outs for these assays: the capillary electrophoresis and deep sequencing platforms. 
 
 \subsection{Evaluation using M$^2$-seq on the MedLoop hairpin systems}
-To test our method using deep sequencing, we obtained M$^2$-seq measurements for a benchmark of three RNA sequences of our own design using the EteRNA expert interface (see Materials and Methods): the MedLoop, MedLoop$\Delta$.
+To test our method using deep sequencing, we obtained M$^2$-seq measurements for a benchmark of two RNA sequences of our own design using the Eterna expert interface (see Materials and Methods): the MedLoop, MedLoop$\Delta$.
  We have previously studied the MedLoop RNA in a proof-of-concept test case for the M$^2$ methodology \cite{Kladwang2011}. 
-The wild type MedLoop forms a stable 10 base-pair hairpin while some mutations that disrupt that helix force it into an alternative stem (see Figure ~\ref{fig:medloopfig}A). 
+The wild type MedLoop forms a stable 10 base-pair hairpin. Most mutations either do not disrupt the derived chemical mapping profile or enhance the chemical reactivity of the mutated nucleotide and its base-paring partner, providing a ``contact map'' for the RNA. 
+Some mutations that disrupt that helix force it into an alternative stem (see Figure ~\ref{fig:medloopfig}A). 
 According to REEFFIT, the MedLoop M$^2$ data can be modeled with these two structures: a 10-base pair helix (which we will denote by $mlp_1$) and an alternative 3$^{\prime}$ hairpin ($mlp_2$). 
 As expected, $mlp_1$ (Figure ~\ref{fig:medloopfig}A,  blue) is the predominant state in most of the constructs, including the wild type sequence, while $mlp_2$ (green) becomes dominant when the $mlp_1$ helix is destabilized by mutation. 
 Interestingly, mutations in the loop of $mlp_1$, such G11C and A17U, seem to destabilize the structure, resulting in a mixture of the two states. 
@@ -202,16 +168,16 @@ This is expected since the helices of $mlp_1$ and $mlp_2$ share the 3$^{\prime}$
 
 The MedLoop$\Delta$ construct differs from MedLoop in that it lacks five nucleotides in the 3$^{\prime}$ end, which abolishes the alternative stem. 
 REEFFIT models the MedLoop$\Delta$ M$^2$ data with three structures: $mlp_1$ (blue in Figure ~\ref{fig:medloopdeltafig}A, same structure as $mlp_1$ for the MedLoop RNA), $mlp_1'$ (green), and $mlp_3$ (red). 
-The $mlp_1'$ structures is a variation  of the $mlp_1$ structure of the MedLoop RNA: $mlp_1'$ has an extra helix that is made possible by the 5-nucleotide deletion. 
+The $mlp_1'$ structure is a variation  of the $mlp_1$ structure of the MedLoop RNA but presenting an extra helix that is made possible by the 5-nucleotide deletion. 
 In the wild type sequence, $mlp_1$ is the main structure with a predicted mean weight of 1. 
 Across the rest of the mutants, $mlp_1$ and $mlp_1'$ alternate as the dominant structure.
 When the main helix of $mlp_1$ and $mlp_1'$ is destabilized (e.g. in the C3G mutant, see also the I and II features marked in Figure ~\ref{fig:medloopdeltafig}), $mlp_3$ appears in the structural ensemble, but it is never stabilized beyond a weight of 0.5. 
-For both MedLoop constructs the predicted weights of RNAstructure for each structure in the wild type sequence (which mainly show one stable structure), matched REEFFIT's results. However, about 50\% of REEFFIT's weights for each mutant deviated from the initial RNAstructure predictions. Nevertheless, we note that in both cases the likelihood function increased drastically when using the final weight estimates compared to RNAstructure's prediction, indicating that REEFFIT's weights are a more accurate depiction of the ensemble given the data. [DO WE NEED A FIGURE FOR THIS COMPARISON?].
 
-\subsection{A 48-nucleotide RNA with several excited states}
+
+\subsection{A 45-nucleotide RNA with several excited states}
 
 The final M$^2$-seq test case was the M-stable construct, an RNA whose minimum free energy structure is predicted to be a simple hairpin with a tetraloop (see orange structure, Figure  ~\ref{fig:medloopdeltafig}A, which we will denote as $mst_1$). 
-The structure is deceptively simple: the structural ensemble of the construct is predicted to have at least 2 other structures 1 kcal away from the $mst_1$. 
+The minimum free energy structure is deceptively simple: the structural ensemble of the construct is predicted to have at least 2 other structures 1 kcal away from the $mst_1$. 
 This unstable ensemble is susceptible to change drastically by mutation and therefore presents a challenging case for REEFFIT. 
 The M$^2$-seq measurements clearly indicate the presence of more than three structures when all the mutants are taken into account. 
 REEFFIT models the M-stable data with 4 states (see Figure ~\ref{fig:medloopdeltafig}A). 
@@ -227,16 +193,18 @@ We note that all structures are predicted to be in the wild type ensemble by RNA
 
 \subsection{Experimental evaluation using capillary electrophoresis}
 
-Previously, Hobartner and colleagues used imino proton NMR spectra to estimate the ensemble weights of two structures in a bistable RNA hairpin (Figure ~\ref{fig:hobartnerfig}A) \cite{Hobartner2003}. 
-The simplicity of this system allowed the authors to decompose its NH...N 1H NMR spectrum into a weighted sum of the NMR spectra of each hairpin without the need of resonance assignment and therefore presents an excellent test case for REEFFIT. 
+Previously, Hobartner and colleagues used imino proton NMR spectra to estimate the ensemble weights of two structures in a bistable RNA hairpin which we call BST (Figure ~\ref{fig:hobartnerfig}A) \cite{Hobartner2003}. 
+The simplicity of this system allowed the authors to decompose its NH...N 1H NMR spectrum into a weighted sum of the NMR spectra of each hairpin without the need of resonance assignment and characterize its ensemble. 
+These gold standard measurements make the BST an excellent test case for REEFFIT. 
 We synthesized this RNA and obtained M$^2$ measurements for this system using capillary electrophoresis as a read-out (see Materials and Methods). 
 Visual inspection of the reactivity profile for the wild type and the global rearrangements occurring in most mutants hint of the bistable nature of this RNA (Figure ~\ref{fig:hobartnerfig}C). 
-Unless perturbed, this bistable RNA folds predominantly into a haripin with its helix in the 3$^{\prime}$ end (blue structure in Figure ~\ref{fig:hobartnerfig}), which we will denote as $BST_1$. When the $BST_1$ helix is perturbed by mutation, the RNA switches to a 5$^{\prime}$ helix structure (green, denoted here as $BST_2$). 
+Unless perturbed, this bistable RNA folds predominantly into a haripin with its helix in the 3$^{\prime}$ end (blue structure in Figure ~\ref{fig:hobartnerfig}), which we will denote as $bst_1$. When the $bst_1$ helix is perturbed by mutation, the RNA switches to a 5$^{\prime}$ helix structure (green, denoted here as $bst_2$). 
 Some constructs in this M$^2$ experiment, e.g. G8C, have a mixture of these two structures in their ensembles. 
-As in the MedLoop M$^2$ data, the two states share a region of nucleotides in their respective helices (G11 to U13) and therefore the mutations have asymmetrical effects: mutations affecting this region have little effect in the ensemble since they destabilize both structures, while more 3$^{\prime}$ mutations destabilize $BST_1$ significantly. the mutations have asymmetrical effects. 
-The wild type RNA is a mixture of these two states, $BST_1$ is present 70\% of the time and $BST_2$ 30\%. 
+As in the MedLoop M$^2$ data, the two states share a region of nucleotides in their respective helices (G11 to U13) and therefore the mutations have asymmetrical effects: mutations affecting this region have little effect in the ensemble since they destabilize both structures.
+In contrast, mutations in the 3$^{\prime}$ end destabilize $bst_1$ significantly, revealing $bst_2$. 
+The wild type RNA is a mixture of these two states, $bst_1$ is present 70\% $\pm X$ of the time and $bst_2$ 30\% $\pm X$. 
 These estimated weights are in agreement with the previously reported fractions by Hobartner et al. (Figure ~\ref{fig:hobartnerfig}B). 
-Furthermore, combining the profiles of U4A and C23G, mutants that are predicted by REEFFIT to stabilize $BST_1$ and $BST_2$ respectively, result in a profile that follows closely the wild type reactivities (Figure ~\ref{fig:hobartnervalidationfig}).
+As a final test, combining the profiles of U4A and C23G, mutants that are predicted by REEFFIT to stabilize $bst_1$ and $bst_2$ respectively, result in a profile that follows closely the wild type reactivities (Figure ~\ref{fig:hobartnervalidationfig}).
 
 \section{Discussion}
 
@@ -244,25 +212,69 @@ Probing the structural ensembles of RNA molecules is a formidable task that is e
 Current experimental techniques used to probe these ensembles require significant infrastructure investment, technical expertise, and are limited to small RNA sequences. 
 We presented a novel strategy based on easily obtainable chemical mapping measurements that can be used to address this challenge. 
 By taking advantage of the ensemble perturbations induced by single-nucleotide mutations in M$^2$ experiments, we have cast the RNA structural ensemble challenge as a source separation ``cocktail party'' problem \cite{Cardoso1998}. 
-The resulting algorithm that solves this problem, REEFFIT, extracts structural ensembles out of multi-dimenwsional chemical mapping experiments. 
-Although we have evaluated our method using M$^2$ measurements, REEFFIT can also be used to analyze other multi-dimensional chemical mapping experiments where the source of perturbation is other than mutation. 
+The resulting algorithm that solves this problem, REEFFIT, extracts structural ensembles out of multi-dimensional chemical mapping experiments. 
+Because of its underlying general factor analysis framework, REEFFIT is easily extensible and provides a basis for future modeling of chemical mapping data. 
+Importantly, REEFFIT is not limited to M$^2$ experiments: the only requirements are that all reactivity profiles in the dataset are perturbed versions of approximately the same ensemble of structures and that the number of profiles is at least as large as the number of the most prevalent structures in the ensemble. 
+It is therefore theoretically possible to use sources of perturbations other than mutations such as changing ionic concentrations  \cite{Das2010}, temperature, or concentration of small molecule binders \cite{Kladwang2011f}, or macromolecule partners \cite{Kladwang2010}.
 
 For M$^2$ experiments, REEFFIT can be used to tease out the observed changes due to structural ensemble perturbations and the local perturbations induced by the mutations themselves. 
 This enables extracting additional insights from this information-rich strategy and helps deconvolute global structural rearrangements and the embedded “contact map” of the RNA that we have previously used to refine secondary structure predictions \cite{Kladwang2011f}.
 
 REEFFIT's statistical model can be easily extended to use different priors for the structure reactivity profiles due to the use of MCMC. 
 For example, instead of classifying nucleotides in paired and unpaired states, we could group them by secondary structure element (hairpin, edge base-pair, bulges, interior loops, etc.) and assign different reactivity distributions for each element, analogous to what we have done to calculate $RMDB_U$ and $RMDB_P$. 
-In fact, following this rationale, it would also be possible to obtain three-dimensional ensembles using an appropriate structure space sampling scheme \cite{Frellsen2009,Das2007,Das2010,Jonikas2009}. 
+In fact, following this rationale, it would also be possible to separately model tertiary structures using an appropriate structure space sampling scheme and known reactivity patterns of tertiary motifs such as kink turns and tetraloop/receptors \cite{Frellsen2009,Das2007,Das2010,Jonikas2009}. 
 This may become a reality in the near future as we obtain enough chemical mapping measurements in order to robustly estimate the prior distributions of each three-dimensional structure motif.
 
-WHERE IS DISCUSSION OF BIAS FROM RNASTRUCTURE WEIGHTS? |--> WAS MOVED TO METHODS, SHOULD WE PUT IT HERE TOO?
-
 We expect REEFFIT to be used routinely to analyze multi-dimensional mapping experiments, not only to dissect the complex ensembles of various biologically-relevant molecules such as the structure fractions of riboswitches in the absence of ligand, but to detect systematic flaws in current secondary structure energy functions and provide insights for the design of RNA circuitry. 
-The commoditization of sequencing technologies will further expand the use of RNA chemical mapping for structure probing and REEFFIT will help in the dissection of these data and push forward a view of that includes experimental probing of structure thermodynamics that goes beyond the implicit dogma of "one sequence, one structure". 
+The commoditization of sequencing technologies will further expand the use of RNA chemical mapping for structure probing and REEFFIT will help in the dissection of these data and push forward a view of that includes experimental probing of structure thermodynamics that goes beyond the implicit dogma of ``one sequence, one structure''. 
 
 
 
 \section{Materials and Methods}
+
+\subsection{The REEFFIT statistical model}
+Given a set $S =  \{ S_1, S_2, …, S_{t} \}$ of secondary structures with reactivity profiles $D = \{ D_{1}, D_{2}, ..., D_{t} \}$, REEFFIT models the observed reactivity profiles, $D^{obs}$ as linear, convex combinations of the reactivity profiles of $D$ plus white noise (see Figure ~\ref{fig:statmodelfig}B). 
+$D$ is a set of hidden variables since the isolated reactivity profiles of each structure are not available. 
+However, we can impose a prior on each of these hidden profiles depending on their corresponding secondary structure. 
+Each $D_{s}$ can be decomposed into a set of univariate random variables $D_{si}$, one for each nucleotide $i = 1, 2, ..., n$, where $n$ is the number of nucleotides (here and throughout the text, $D$ will be treated as an $m \times n$ matrix, with rows denoted as $D_{s}$ and columns as $D_{i}$, where $s$ is a structure index and $i$ is a position index). 
+Because low and high chemical reactivities are correlated with structured and unstructured states, a reasonable prior would force $D_{si}$ to be small if $i$ is paired in structure $S_s$ and higher if it is unpaired. To get distributions of the reactivities of paired and unpaired nucleotides, we compiled all the SHAPE reactivity data in the RNA Mapping Database (RMDB) \cite{Cordero2012} of RNAs with known crystallographic structure and modeled these distributions in terms of mixtures of gamma distributions as described previously \cite{Cordero2012a}. 
+Let $RMDB_U$ and $RMDB_P$ be the modeled RMDB unpaired and paired distributions respectively, we can then define a prior likelihood for $D_{s}$ as: 
+\begin{align}
+  &\begin{aligned}
+RMDB_{s}(x) &= \prod_i (RMDB_U(x) \mbox{I}\left[i \mbox{ is paired in } S_s\right]\\ 
+                &+ RMDB_P(x) \mbox{I}\left[i \mbox{ is unpaired in } S_s\right])
+  \end{aligned}
+\end{align}
+
+where $\mbox{I}$ is the indicator function (1 or 0 if the condition is satisfied or not, respectively). Because these distributions were estimated using SHAPE data, any statistical model based on them will only work properly in SHAPE-based chemical mapping experiments. 
+To handle other modifiers, e.g. dimethyl sulfate, $RMDB_P$ and $RMDB_U$ can be replaced with the respective estimated distributions using unpaired and paired data of that modifier \cite{Cordero2012a} and will be reported elsewhere. 
+After defining our priors for each structure profile, we can write the REEFFIT model (see also Figure ~\ref{fig:statmodelfig}):
+
+\begin{align}
+  &\begin{aligned}\label{reeffit_model}
+    D^{obs}_{ji} &= \sum_{s \in \mbox{structures}} W_{js}D_{si} + \epsilon_{ji}\\
+    D_{s} &\sim RMDB_{s} \\
+    \epsilon_{ji} &\sim \mathcal{N}(0, \Psi_{i}) \\
+    \sum_{s \in \mbox{structures}} W_{js} &= 1, \forall j = 1, …, m\\
+  \end{aligned}
+\end{align}
+
+
+Here, $D^{obs}_{i}$ and $D_{i}$ are the column vectors of $D$ indexed by nucleotide position, $W_{js}$ is the weight for the profile of structure $s$ in the observed profile $j = 1 , 2, ..., m$ with $m$ the number of mapping profiles in the experiment. 
+The column variable $\epsilon_{i}$ is centered white noise with a diagonal covariance matrix $\Psi_{i}I_{m} \in \Re^{m \times m}$ where $\Psi_{i}$ is a scalar and $I_{m}$ is the $m \times m$ identity matrix. 
+Our model differs from the standard factor analysis model \cite{Ghahramani1996} in two ways. 
+First, we have $n$ rather than one $\epsilon$ variable to capture experimental noise. 
+This derives from our observations that different sequence positions have different experimental error distributions depending on the intensity of the reactivity and proximity to the beginning and end of the sequence \cite{Kladwang2011}. 
+Second, different sequence positions are assigned different prior distributions that depend on the pairing state of each structure in the model. 
+It is important to note that here, as in standard factor analysis, all covariance matrices for the noise must be diagonal, that is, the measurements are independent of each other \cite{Ghahramani1996,Rubin1982}. 
+This assumption holds in the case of multiple chemical mapping measurements, since each measurement is carried out in different capillaries (in capillary electrophoresis) or based on poisson distributed counts derived from separate single molecules (in deep sequencing).
+
+There is no closed form maximum likelihood estimation for this model and therefore we used an expectation maximization (EM) algorithm to obtain expected values for the hidden variables (in our case, $D$), and maximum likelihood estimates for $W$ \cite{Ghahramani1996,Rubin1982}. 
+In standard factor analysis, the E-step can be obtained in closed form by calculating the sufficient statistics for the likelihood function, which happen to be the first two moments of the posterior distribution of $D$: $E[D | D^{obs}]$ and $E[DD^T | D^{obs}]$. 
+Unfortunately, the non-gaussian form our priors for each $D_{s}$ precludes us from having a closed form for these statistics and we must calculate them using Markov Chain Monte Carlo (MCMC) [see next section]. 
+For the M-step, closed form solutions depending on these sufficient statistics exist for $W$. 
+Additionally, we incorporate convex combination constraints on $W$ by casting it as a quadratic problem and solving numerically (see Materials and Methods).
+
 
 \subsection{Maximum likelihood estimation of the REEFFIT model}
 Given the REFFIT factor analysis model (\ref{reeffit_model}) we want to calculate maximum likelihood estimates for $W$ and each $\Psi_{i}$ given the hidden variables $D$. 
@@ -363,8 +375,14 @@ Any data point whose probability given our model is below 0.05 is marked as miss
 
 \subsection{Initial structure set selection procedure}
 
-When a set of structures is not provided \textit{a priori}, REEFFIT draws a subset of structures from the suboptimal structures of all sequences in the experiments that would best model the data. 
-In M$^2$ experiments, the suboptimal structures of all mutants involved are taken into account. Theoretically, to find the best structures that model the data we could enumerate all possible combinations of structures, fit model (\ref{reeffit_model}) to each combination, calculate some penalized information score, and choose the combination with the best score. 
+In most realistic scenarios it is not known \textit{a priori} what set of structures would best model the data. 
+To select an initial set of structures, we calculate a set of suboptimal structures for each sequence in the multi-dimensional chemical mapping experiment; for M$^2$ experiments, the suboptimal structures of all mutants involved are taken into account. 
+We then proceed to cluster the structures using hierarchical clustering with a probabilistic distance metric and a Calinski-Barabasz cutoff (see Materials and Methods and Figure ~\ref{fig:structselectfig}A). 
+Taking the structures in ensembles of all mutants allows for a broad initial search of structures. 
+We select structure medoids for each cluster by taking the one that is found to be most stabilized in the wild type sequence, according to the RNAstructure package. 
+Finally, structures are scored by their maximum observed stability in all mutants and are added in a greedy manner by minimizing the Akaike information criterion which penalizes model complexity to avoid overfitting \cite{Akaike1987} (see below and Figure ~\ref{fig:structselectfig}B).
+
+Theoretically, to find the best structures that model the data we could enumerate all possible combinations of structures, fit model (\ref{reeffit_model}) to each combination, calculate some penalized information score, and choose the combination with the best score. 
 In practice, this method is intractable for a large set of structures due to the exponential number of combinations of structures. 
 Furthermore, the quadratic nature of the likelihood function does not allow a nested decomposition required for search space reduction techniques such as dynamic programming. 
 Instead, we choose to explore structures that are most representative of the combined set of suboptimal structures. 
@@ -419,18 +437,16 @@ For each single-nucleotide mutant, we calculate the free energies of the structu
 We then add white noise to the energies to simulate deviations from our incomplete understanding of RNA thermodynamics. Using these noisy energies, we calculate the Boltzmann weights of each structure for each mutant. 
 The reactivity profile of each mutant is then the linear combination of the reactivity profiles of $S$ weighted by the set of weights calculated previously. 
 To simulate local perturbations due to mutations, we randomly added Laplace-distributed reactivity differences in sites at most one nucleotide away from the mutation position and any base-pair affected by the nucleotide change. 
-These simulated datasets showed hallmarks of experimental M$^2$ data, such as global structure rearrangements  and punctate mutation marks (see Figure ~\ref{fig:insilicofig}C)
-
-
+These simulated datasets showed hallmarks of experimental M$^2$ data, such as global structure rearrangements  and punctate mutation marks (see Figure ~\ref{fig:insilicofig}C).
 
 \section{Data set and software availability}
 
 REEFFIT has been integrated into the RNA dataset toolkit (RDATkit) and is available at http://simtk.org/reeffit, alongside with software documentation and tutorials. 
-M$^2$ data for the Hobartner bistable RNA has been deposited in the RMDB (RMDB ID HOBIS\_SHP\_0001.rdat). 
+M$^2$ data for the Hobartner bistable RNA has been deposited in the RMDB (RMDB ID BSTHPN\_SHP\_0001.rdat). 
 M$^2$-seq data for the MedLoop, MedLoop$\Delta$, and M-stable RNAs are part of the EteRNA cloud lab, rounds 72 and 73, and is also available at the RMDB (RMDB IDs ETERNA\_ R72\_ 0000 and ETERNA\_ R73\_ 0000). 
 RDAT files for the simulated datasets are available on request.
 
-\bibliographystyle{plain}
+\bibliographystyle{ieeetr}
 \bibliography{/home/tsuname/Documents/lab/bibtex/REEFFIT.bib}
 
 \begin{figure}[here]
