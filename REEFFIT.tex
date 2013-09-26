@@ -13,7 +13,7 @@
 \maketitle
 
 \begin{abstract}
-The ability to change conformations is central to the functions of many non-coding RNAs, ranging from gene regulation to protein synthesis. 
+The ability to change conformations is central to the myriad non-coding RNAs that underlie gene regulation, protein synthesis, and viral infection. 
 Fully understanding these changes requires characterization of these molecules' structural ensembles at equilibrium, but this problem has remained experimentally and computationally daunting. 
 To address this challenge, we present the RNA ensemble extraction from footprinting insights technique (REEFFIT), an algorithm that infers ensembles of secondary structures from multi-dimensional chemical mapping experiments, and its integration with Eterna, a cloud biochemistry platform for RNA science. 
 Inspired by the successes in blind source separation (the ``cocktail party problem'') we developed REEFFIT as a factor analysis model. 
@@ -28,7 +28,7 @@ These results establish REEEFIT and cloud-based multi-dimensional chemical mappi
 RNA is a versatile biological macromolecule that underlies important processes such as gene expression, gene regulation, and structural scaffolding throughout living systems. 
 Most of these roles rely on the ability of RNA molecules to self-assemble into intricate structures.
 However, it is an oversimplification to think that an RNA molecule folds just into one structure. 
-Intense theoretical and experimental work has established that RNA is a dynamic structural entity that can adopt multiple conformations: an ensemble of structures that are present at equilibrium and whose intercoversions are functionally critical. 
+Intense theoretical and experimental work has established that RNA is a dynamic structural entity that can adopt multiple conformations: an ensemble of structures that are present at equilibrium and whose interconversions are functionally critical. 
 Although computational algorithms for predicting RNA structural ensembles are available, the verification and dissection of these ensembles experimentally is still limited due to the size, resolution, and infrastructure constraints of state-of-the-art methods such as magnetic resonance and X-ray scattering. 
 We show here that coupling RNA chemical mapping, an already widely used technique to probe RNA structure, to systematic mutagenesis (the mutate-and-map or M$^2$ strategy) provides a powerful experimental tool to probe ensembles at the single-nucleotide level. 
 We leveraged algorithmic frameworks for the source-separation problem in signal processing and aided by public chemical mapping data sources and new cloud-based technology for synthesis and probing RNA structure online to develop REEFFIT. This factor analysis technique calculates the secondary structural ensemble that most parsimoniously fits the observed patterns of a multi-dimensional mapping experiment. 

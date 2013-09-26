@@ -1,0 +1,982 @@
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.8.6)  26 SEP 2013 09:09
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**REEFFIT.tex
+(./REEFFIT.tex
+LaTeX2e <2011/06/27>
+Babel <3.9f> and hyphenation patterns for 21 languages loaded.
+(/usr/local/texlive/2013basic/texmf-dist/tex/latex/base/article.cls
+Document Class: article 2007/10/19 v1.4h Standard LaTeX document class
+(/usr/local/texlive/2013basic/texmf-dist/tex/latex/base/size12.clo
+File: size12.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
+)
+\c@part=\count79
+\c@section=\count80
+\c@subsection=\count81
+\c@subsubsection=\count82
+\c@paragraph=\count83
+\c@subparagraph=\count84
+\c@figure=\count85
+\c@table=\count86
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+)
+(/usr/local/texlive/2013basic/texmf-dist/tex/generic/babel/babel.sty
+Package: babel 2013/05/16 v3.9f The Babel package
+
+(/usr/local/texlive/2013basic/texmf-dist/tex/generic/babel-english/english.ldf
+Language: english 2012/08/20 v3.3p English support from the babel system
+
+(/usr/local/texlive/2013basic/texmf-dist/tex/generic/babel/babel.def
+File: babel.def 2013/05/16 v3.9f Babel common definitions
+\babel@savecnt=\count87
+\U@D=\dimen103
+)
+\l@canadian = a dialect from \language\l@american 
+\l@australian = a dialect from \language\l@british 
+\l@newzealand = a dialect from \language\l@british 
+))
+(/usr/local/texlive/2013basic/texmf-dist/tex/latex/base/inputenc.sty
+Package: inputenc 2008/03/30 v1.1d Input encoding file
+\inpenc@prehook=\toks14
+\inpenc@posthook=\toks15
+
+(/usr/local/texlive/2013basic/texmf-dist/tex/latex/ucs/utf8x.def
+File: utf8x.def 2004/10/17 UCS: Input encoding UTF-8
+))
+(/usr/local/texlive/2013basic/texmf-dist/tex/latex/ucs/ucs.sty
+Package: ucs 2013/05/11 v2.2 UCS: Unicode input support
+
+(/usr/local/texlive/2013basic/texmf-dist/tex/latex/ucs/data/uni-global.def
+File: uni-global.def 2013/05/13 UCS: Unicode global data
+)
+\uc@secondtry=\count88
+\uc@combtoks=\toks16
+\uc@combtoksb=\toks17
+\uc@temptokena=\toks18
+)
+(/usr/local/texlive/2013basic/texmf-dist/tex/latex/amsmath/amsmath.sty
+Package: amsmath 2013/01/14 v2.14 AMS math features
+\@mathmargin=\skip43
+
+For additional information on amsmath, use the `?' option.
+(/usr/local/texlive/2013basic/texmf-dist/tex/latex/amsmath/amstext.sty
+Package: amstext 2000/06/29 v2.01
+
+(/usr/local/texlive/2013basic/texmf-dist/tex/latex/amsmath/amsgen.sty
+File: amsgen.sty 1999/11/30 v2.0
+\@emptytoks=\toks19
+\ex@=\dimen104
+))
+(/usr/local/texlive/2013basic/texmf-dist/tex/latex/amsmath/amsbsy.sty
+Package: amsbsy 1999/11/29 v1.2d
+\pmbraise@=\dimen105
+)
+(/usr/local/texlive/2013basic/texmf-dist/tex/latex/amsmath/amsopn.sty
+Package: amsopn 1999/12/14 v2.01 operator names
+)
+\inf@bad=\count89
+LaTeX Info: Redefining \frac on input line 210.
+\uproot@=\count90
+\leftroot@=\count91
+LaTeX Info: Redefining \overline on input line 306.
+\classnum@=\count92
+\DOTSCASE@=\count93
+LaTeX Info: Redefining \ldots on input line 378.
+LaTeX Info: Redefining \dots on input line 381.
+LaTeX Info: Redefining \cdots on input line 466.
+\Mathstrutbox@=\box26
+\strutbox@=\box27
+\big@size=\dimen106
+LaTeX Font Info:    Redeclaring font encoding OML on input line 566.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 567.
+\macc@depth=\count94
+\c@MaxMatrixCols=\count95
+\dotsspace@=\muskip10
+\c@parentequation=\count96
+\dspbrk@lvl=\count97
+\tag@help=\toks20
+\row@=\count98
+\column@=\count99
+\maxfields@=\count100
+\andhelp@=\toks21
+\eqnshift@=\dimen107
+\alignsep@=\dimen108
+\tagshift@=\dimen109
+\tagwidth@=\dimen110
+\totwidth@=\dimen111
+\lineht@=\dimen112
+\@envbody=\toks22
+\multlinegap=\skip44
+\multlinetaggap=\skip45
+\mathdisplay@stack=\toks23
+LaTeX Info: Redefining \[ on input line 2665.
+LaTeX Info: Redefining \] on input line 2666.
+)
+(/usr/local/texlive/2013basic/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
+
+(/usr/local/texlive/2013basic/texmf-dist/tex/latex/graphics/keyval.sty
+Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
+\KV@toks@=\toks24
+)
+(/usr/local/texlive/2013basic/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
+
+(/usr/local/texlive/2013basic/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
+)
+(/usr/local/texlive/2013basic/texmf-dist/tex/latex/latexconfig/graphics.cfg
+File: graphics.cfg 2010/04/23 v1.9 graphics configuration of TeX Live
+)
+Package graphics Info: Driver file: pdftex.def on input line 91.
+
+(/usr/local/texlive/2013basic/texmf-dist/tex/latex/pdftex-def/pdftex.def
+File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
+
+(/usr/local/texlive/2013basic/texmf-dist/tex/generic/oberdiek/infwarerr.sty
+Package: infwarerr 2010/04/08 v1.3 Providing info/warning/error messages (HO)
+)
+(/usr/local/texlive/2013basic/texmf-dist/tex/generic/oberdiek/ltxcmds.sty
+Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
+)
+\Gread@gobject=\count101
+))
+\Gin@req@height=\dimen113
+\Gin@req@width=\dimen114
+)
+(/usr/local/texlive/2013basic/texmf-dist/tex/latex/geometry/geometry.sty
+Package: geometry 2010/09/12 v5.6 Page Geometry
+
+(/usr/local/texlive/2013basic/texmf-dist/tex/generic/oberdiek/ifpdf.sty
+Package: ifpdf 2011/01/30 v2.3 Provides the ifpdf switch (HO)
+Package ifpdf Info: pdfTeX in PDF mode is detected.
+)
+(/usr/local/texlive/2013basic/texmf-dist/tex/generic/oberdiek/ifvtex.sty
+Package: ifvtex 2010/03/01 v1.5 Detect VTeX and its facilities (HO)
+Package ifvtex Info: VTeX not detected.
+)
+(/usr/local/texlive/2013basic/texmf-dist/tex/generic/ifxetex/ifxetex.sty
+Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
+)
+\Gm@cnth=\count102
+\Gm@cntv=\count103
+\c@Gm@tempcnt=\count104
+\Gm@bindingoffset=\dimen115
+\Gm@wd@mp=\dimen116
+\Gm@odd@mp=\dimen117
+\Gm@even@mp=\dimen118
+\Gm@layoutwidth=\dimen119
+\Gm@layoutheight=\dimen120
+\Gm@layouthoffset=\dimen121
+\Gm@layoutvoffset=\dimen122
+\Gm@dimlist=\toks25
+)
+(/usr/local/texlive/2013basic/texmf-dist/tex/latex/setspace/setspace.sty
+Package: setspace 2011/12/19 v6.7a set line spacing
+)
+No file REEFFIT.aux.
+\openout1 = `REEFFIT.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+(/usr/local/texlive/2013basic/texmf-dist/tex/latex/ucs/ucsencs.def
+File: ucsencs.def 2011/01/21 Fixes to fontencodings LGR, T3
+)
+(/usr/local/texlive/2013basic/texmf-dist/tex/context/base/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count105
+\scratchdimen=\dimen123
+\scratchbox=\box28
+\nofMPsegments=\count106
+\nofMParguments=\count107
+\everyMPshowfont=\toks26
+\MPscratchCnt=\count108
+\MPscratchDim=\dimen124
+\MPnumerator=\count109
+\makeMPintoPDFobject=\count110
+\everyMPtoPDFconversion=\toks27
+) (/usr/local/texlive/2013basic/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
+Package: pdftexcmds 2011/11/29 v0.20 Utility functions of pdfTeX for LuaTeX (HO
+)
+
+(/usr/local/texlive/2013basic/texmf-dist/tex/generic/oberdiek/ifluatex.sty
+Package: ifluatex 2010/03/01 v1.3 Provides the ifluatex switch (HO)
+Package ifluatex Info: LuaTeX not detected.
+)
+Package pdftexcmds Info: LuaTeX not detected.
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+)
+(/usr/local/texlive/2013basic/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
+Package: epstopdf-base 2010/02/09 v2.5 Base part for package epstopdf
+
+(/usr/local/texlive/2013basic/texmf-dist/tex/latex/oberdiek/grfext.sty
+Package: grfext 2010/08/19 v1.1 Manage graphics extensions (HO)
+
+(/usr/local/texlive/2013basic/texmf-dist/tex/generic/oberdiek/kvdefinekeys.sty
+Package: kvdefinekeys 2011/04/07 v1.3 Define keys (HO)
+)) (/usr/local/texlive/2013basic/texmf-dist/tex/latex/oberdiek/kvoptions.sty
+Package: kvoptions 2011/06/30 v3.11 Key value format for package options (HO)
+
+(/usr/local/texlive/2013basic/texmf-dist/tex/generic/oberdiek/kvsetkeys.sty
+Package: kvsetkeys 2012/04/25 v1.16 Key value parser (HO)
+
+(/usr/local/texlive/2013basic/texmf-dist/tex/generic/oberdiek/etexcmds.sty
+Package: etexcmds 2011/02/16 v1.5 Avoid name clashes with e-TeX commands (HO)
+Package etexcmds Info: Could not find \expanded.
+(etexcmds)             That can mean that you are not using pdfTeX 1.50 or
+(etexcmds)             that some package has redefined \expanded.
+(etexcmds)             In the latter case, load this package earlier.
+)))
+Package grfext Info: Graphics extension search list:
+(grfext)             [.png,.pdf,.jpg,.mps,.jpeg,.jbig2,.jb2,.PNG,.PDF,.JPG,.JPE
+G,.JBIG2,.JB2,.eps]
+(grfext)             \AppendGraphicsExtensions on input line 452.
+
+(/usr/local/texlive/2013basic/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
+e
+))
+*geometry* driver: auto-detecting
+*geometry* detected driver: pdftex
+*geometry* verbose mode - [ preamble ] result:
+* driver: pdftex
+* paper: <default>
+* layout: <same size as paper>
+* layoutoffset:(h,v)=(0.0pt,0.0pt)
+* modes: 
+* h-part:(L,W,R)=(54.2025pt, 505.89pt, 54.2025pt)
+* v-part:(T,H,B)=(54.2025pt, 686.56499pt, 54.2025pt)
+* \paperwidth=614.295pt
+* \paperheight=794.96999pt
+* \textwidth=505.89pt
+* \textheight=686.56499pt
+* \oddsidemargin=-18.06749pt
+* \evensidemargin=-18.06749pt
+* \topmargin=-55.06749pt
+* \headheight=12.0pt
+* \headsep=25.0pt
+* \topskip=12.0pt
+* \footskip=30.0pt
+* \marginparwidth=44.0pt
+* \marginparsep=10.0pt
+* \columnsep=10.0pt
+* \skip\footins=10.8pt plus 4.0pt minus 2.0pt
+* \hoffset=0.0pt
+* \voffset=0.0pt
+* \mag=1000
+* \@twocolumnfalse
+* \@twosidefalse
+* \@mparswitchfalse
+* \@reversemarginfalse
+* (1in=72.27pt=25.4mm, 1cm=28.453pt)
+
+
+Overfull \hbox (15.90865pt too wide) in paragraph at lines 13--13
+ [][] 
+ []
+
+[1
+
+{/usr/local/texlive/2013basic/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
+
+LaTeX Warning: Citation `Mandal2004' on page 2 undefined on input line 43.
+
+
+LaTeX Warning: Citation `Winkler2003' on page 2 undefined on input line 43.
+
+
+LaTeX Warning: Citation `Cate1996' on page 2 undefined on input line 43.
+
+
+LaTeX Warning: Citation `Kennedy2013' on page 2 undefined on input line 43.
+
+
+LaTeX Warning: Citation `Soukup1999' on page 2 undefined on input line 43.
+
+
+LaTeX Warning: Citation `Ban2000' on page 2 undefined on input line 43.
+
+
+LaTeX Warning: Citation `Nissen2000' on page 2 undefined on input line 43.
+
+
+LaTeX Warning: Citation `Muth2000' on page 2 undefined on input line 43.
+
+
+LaTeX Warning: Citation `Win2008' on page 2 undefined on input line 43.
+
+
+LaTeX Warning: Citation `Lucks2008' on page 2 undefined on input line 43.
+
+
+LaTeX Warning: Citation `Reining2013' on page 2 undefined on input line 44.
+
+
+LaTeX Warning: Citation `Reining2013' on page 2 undefined on input line 45.
+
+
+LaTeX Warning: Citation `Villordo2010' on page 2 undefined on input line 45.
+
+[2]
+
+LaTeX Warning: Citation `McCaskill' on page 3 undefined on input line 48.
+
+
+LaTeX Warning: Citation `Ding2005b' on page 3 undefined on input line 48.
+
+
+LaTeX Warning: Citation `Bothe2011' on page 3 undefined on input line 52.
+
+
+LaTeX Warning: Citation `Russell2002' on page 3 undefined on input line 52.
+
+
+LaTeX Warning: Citation `Wang2009' on page 3 undefined on input line 52.
+
+
+LaTeX Warning: Citation `Mortimer2007' on page 3 undefined on input line 53.
+
+
+LaTeX Warning: Citation `Tijerina2007' on page 3 undefined on input line 53.
+
+
+LaTeX Warning: Citation `Mitra2008' on page 3 undefined on input line 54.
+
+
+LaTeX Warning: Citation `Lucks2011' on page 3 undefined on input line 54.
+
+
+LaTeX Warning: Citation `Noller' on page 3 undefined on input line 55.
+
+
+LaTeX Warning: Citation `Wilkinson2008' on page 3 undefined on input line 55.
+
+
+LaTeX Warning: Citation `Watts2009' on page 3 undefined on input line 55.
+
+
+LaTeX Warning: Citation `Kladwang2011' on page 3 undefined on input line 56.
+
+
+LaTeX Warning: Citation `Kladwang2011f' on page 3 undefined on input line 56.
+
+
+LaTeX Warning: Citation `Mitra2008' on page 3 undefined on input line 59.
+
+
+LaTeX Warning: Citation `Yoon2011' on page 3 undefined on input line 59.
+
+
+LaTeX Warning: Reference `fig:statmodelfig' on page 3 undefined on input line 6
+0.
+
+
+LaTeX Warning: Reference `fig:statmodelfig' on page 3 undefined on input line 6
+8.
+
+
+Overfull \hbox (10.55609pt too wide) in paragraph at lines 59--69
+[]\OT1/cmr/m/n/12 After proper quan-tifi-ca-tion, chem-i-cal map-ping yields a 
+re-ac-tiv-ity pro-file, one value per nucleotide[[],
+ []
+
+[3]
+
+LaTeX Warning: Citation `Attias1999' on page 4 undefined on input line 70.
+
+
+LaTeX Warning: Citation `Cardoso1998' on page 4 undefined on input line 70.
+
+
+LaTeX Warning: Citation `Cardoso1998' on page 4 undefined on input line 71.
+
+[4]
+
+LaTeX Warning: Citation `Ma2006' on page 5 undefined on input line 88.
+
+
+LaTeX Warning: Citation `Gardner2011' on page 5 undefined on input line 96.
+
+
+LaTeX Warning: Citation `Schreiber2006' on page 5 undefined on input line 112.
+
+
+LaTeX Warning: Citation `Marsh1988' on page 5 undefined on input line 112.
+
+
+LaTeX Warning: Citation `Babyak2010' on page 5 undefined on input line 112.
+
+[5] [6]
+
+LaTeX Warning: Reference `insilicobenchmark' on page 7 undefined on input line 
+118.
+
+
+LaTeX Warning: Reference `fig:insilicofig' on page 7 undefined on input line 11
+8.
+
+
+LaTeX Warning: Reference `insilicobenchmark' on page 7 undefined on input line 
+125.
+
+
+LaTeX Warning: Reference `fig:insilicofig' on page 7 undefined on input line 13
+3.
+
+
+LaTeX Warning: Reference `fig:insilicofig' on page 7 undefined on input line 13
+5.
+
+[7] [8] [9]
+
+LaTeX Warning: Citation `Kladwang2011' on page 10 undefined on input line 160.
+
+
+LaTeX Warning: Reference `fig:medloopfig' on page 10 undefined on input line 16
+2.
+
+
+LaTeX Warning: Reference `fig:medloopfig' on page 10 undefined on input line 16
+4.
+
+
+LaTeX Warning: Reference `fig:medloopdeltafig' on page 10 undefined on input li
+ne 170.
+
+
+LaTeX Warning: Reference `fig:medloopdeltafig' on page 10 undefined on input li
+ne 174.
+
+[10]
+
+LaTeX Warning: Reference `fig:medloopdeltafig' on page 11 undefined on input li
+ne 179.
+
+
+LaTeX Warning: Reference `fig:medloopdeltafig' on page 11 undefined on input li
+ne 183.
+
+[11]
+
+LaTeX Warning: Reference `fig:hobartnerfig' on page 12 undefined on input line 
+196.
+
+
+LaTeX Warning: Citation `Hobartner2003' on page 12 undefined on input line 196.
+
+
+
+LaTeX Warning: Reference `fig:hobartnerfig' on page 12 undefined on input line 
+200.
+
+
+LaTeX Warning: Reference `fig:hobartnerfig' on page 12 undefined on input line 
+201.
+
+
+LaTeX Warning: Reference `fig:hobartnerfig' on page 12 undefined on input line 
+206.
+
+
+LaTeX Warning: Reference `fig:hobartnervalidationfig' on page 12 undefined on i
+nput line 207.
+
+
+LaTeX Warning: Citation `Bothe2011' on page 12 undefined on input line 211.
+
+
+LaTeX Warning: Citation `Cardoso1998' on page 12 undefined on input line 214.
+
+
+LaTeX Warning: Citation `Das2010' on page 12 undefined on input line 218.
+
+
+LaTeX Warning: Citation `Kladwang2011f' on page 12 undefined on input line 218.
+
+
+
+LaTeX Warning: Citation `Kladwang2010' on page 12 undefined on input line 218.
+
+[12] (/usr/local/texlive/2013basic/texmf-dist/tex/latex/ucs/data/uni-32.def
+File: uni-32.def 2013/05/13 UCS: Unicode data U+2000..U+20FF
+)
+
+LaTeX Warning: Citation `Kladwang2011f' on page 13 undefined on input line 221.
+
+
+
+LaTeX Warning: Citation `Frellsen2009' on page 13 undefined on input line 225.
+
+
+LaTeX Warning: Citation `Das2007' on page 13 undefined on input line 225.
+
+
+LaTeX Warning: Citation `Das2010' on page 13 undefined on input line 225.
+
+
+LaTeX Warning: Citation `Jonikas2009' on page 13 undefined on input line 225.
+
+[13]
+
+LaTeX Warning: Reference `fig:statmodelfig' on page 14 undefined on input line 
+236.
+
+
+LaTeX Warning: Citation `Cordero2012' on page 14 undefined on input line 240.
+
+
+LaTeX Warning: Citation `Cordero2012a' on page 14 undefined on input line 240.
+
+
+Overfull \hbox (1.02899pt too wide) in paragraph at lines 236--242
+\OT1/cmr/m/n/12 Given a set $\OML/cmm/m/it/12 S \OT1/cmr/m/n/12 = \OMS/cmsy/m/n
+/12 f\OML/cmm/m/it/12 S[]; S[]; [] ; S[]\OMS/cmsy/m/n/12 g$ \OT1/cmr/m/n/12 of 
+sec-ondary struc-tures with re-ac-tiv-ity pro-files $\OML/cmm/m/it/12 D \OT1/cm
+r/m/n/12 = \OMS/cmsy/m/n/12 f\OML/cmm/m/it/12 D[]; D[]; :::; D[]\OMS/cmsy/m/n/1
+2 g$\OT1/cmr/m/n/12 ,
+ []
+
+[14]
+
+LaTeX Warning: Citation `Cordero2012a' on page 15 undefined on input line 250.
+
+
+LaTeX Warning: Reference `fig:statmodelfig' on page 15 undefined on input line 
+251.
+
+
+LaTeX Warning: Citation `Ghahramani1996' on page 15 undefined on input line 265
+.
+
+
+LaTeX Warning: Citation `Kladwang2011' on page 15 undefined on input line 267.
+
+
+LaTeX Warning: Citation `Ghahramani1996' on page 15 undefined on input line 269
+.
+
+
+LaTeX Warning: Citation `Rubin1982' on page 15 undefined on input line 269.
+
+[15]
+
+LaTeX Warning: Citation `Ghahramani1996' on page 16 undefined on input line 272
+.
+
+
+LaTeX Warning: Citation `Rubin1982' on page 16 undefined on input line 272.
+
+
+LaTeX Warning: Reference `reeffit_model' on page 16 undefined on input line 280
+.
+
+
+Overfull \hbox (43.85973pt too wide) in paragraph at lines 290--290
+[] 
+ []
+
+[16]
+
+LaTeX Warning: Citation `Cordero2012a' on page 17 undefined on input line 302.
+
+
+LaTeX Warning: Citation `Patil2010' on page 17 undefined on input line 303.
+
+
+LaTeX Warning: Reference `reeffit_model' on page 17 undefined on input line 307
+.
+
+[17]
+
+LaTeX Warning: Citation `Dahl2006' on page 18 undefined on input line 318.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 330--332
+
+ []
+
+
+LaTeX Warning: Citation `Kladwang2011f' on page 18 undefined on input line 335.
+
+
+
+LaTeX Warning: Citation `Oakes1999' on page 18 undefined on input line 345.
+
+[18]
+
+LaTeX Warning: Reference `W_qp' on page 19 undefined on input line 366.
+
+[19]
+
+LaTeX Warning: Reference `fig:synthetichairpinfig' on page 20 undefined on inpu
+t line 374.
+
+
+LaTeX Warning: Reference `fig:hobartnerfig' on page 20 undefined on input line 
+374.
+
+
+LaTeX Warning: Reference `fig:medloopfig' on page 20 undefined on input line 37
+4.
+
+
+LaTeX Warning: Reference `fig:structselectfig' on page 20 undefined on input li
+ne 380.
+
+
+LaTeX Warning: Citation `Akaike1987' on page 20 undefined on input line 383.
+
+
+LaTeX Warning: Reference `fig:structselectfig' on page 20 undefined on input li
+ne 383.
+
+
+LaTeX Warning: Reference `reeffit_model' on page 20 undefined on input line 385
+.
+
+[20]
+
+LaTeX Warning: Citation `Ding2005b' on page 21 undefined on input line 397.
+
+
+LaTeX Warning: Reference `reeffit_model' on page 21 undefined on input line 405
+.
+
+[21]
+
+LaTeX Warning: Reference `hobartnerprimers' on page 22 undefined on input line 
+420.
+
+(/usr/local/texlive/2013basic/texmf-dist/tex/latex/ucs/data/uni-0.def
+File: uni-0.def 2013/05/13 UCS: Unicode data U+0000..U+00FF
+)
+
+LaTeX Warning: Reference `fig:hobartnerseq' on page 22 undefined on input line 
+427.
+
+[22]
+
+LaTeX Warning: Reference `fig:insilicofig' on page 23 undefined on input line 4
+40.
+
+[23]
+Overfull \hbox (71.38481pt too wide) in paragraph at lines 444--448
+\OT1/cmr/m/n/12 REEFFIT has been in-te-grated into the RNA dataset toolkit (RDA
+Tkit) and is avail-able at http://simtk.org/reeffit,
+ []
+
+(./REEFFIT.bbl [24] [25] [26] [27])
+<figures/statmodel.png, id=104, 622.9674pt x 704.27115pt>
+File: figures/statmodel.png Graphic file (type png)
+
+<use figures/statmodel.png>
+Package pdftex.def Info: figures/statmodel.png used on input line 453.
+(pdftex.def)             Requested size: 354.12144pt x 400.35335pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+<figures/structselect.png, id=106, 1261.8342pt x 1043.5788pt>
+File: figures/structselect.png Graphic file (type png)
+
+<use figures/structselect.png>
+Package pdftex.def Info: figures/structselect.png used on input line 465.
+(pdftex.def)             Requested size: 455.2979pt x 376.54796pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+<figures/rf01125.png, id=107, 1777.48065pt x 1520.92215pt>
+File: figures/rf01125.png Graphic file (type png)
+
+<use figures/rf01125.png>
+Package pdftex.def Info: figures/rf01125.png used on input line 472.
+(pdftex.def)             Requested size: 455.2979pt x 389.58218pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+<figures/hobartner.png, id=108, 1363.0122pt x 1293.99435pt>
+File: figures/hobartner.png Graphic file (type png)
+
+<use figures/hobartner.png>
+Package pdftex.def Info: figures/hobartner.png used on input line 482.
+(pdftex.def)             Requested size: 455.2979pt x 432.23207pt.
+
+
+LaTeX Warning: Reference `fig:insilicofig' on page 28 undefined on input line 4
+83.
+
+
+LaTeX Warning: Reference `fig:insilicofig' on page 28 undefined on input line 4
+83.
+
+
+LaTeX Warning: Reference `fig:insilicofig' on page 28 undefined on input line 4
+83.
+
+
+LaTeX Warning: Reference `fig:insilicofig' on page 28 undefined on input line 4
+83.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+<figures/hobartnervalidation.png, id=109, 2425.19164pt x 2409.78984pt>
+File: figures/hobartnervalidation.png Graphic file (type png)
+
+<use figures/hobartnervalidation.png>
+Package pdftex.def Info: figures/hobartnervalidation.png used on input line 488
+.
+(pdftex.def)             Requested size: 455.2979pt x 452.38605pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+<figures/medloop.png, id=110, 1735.56406pt x 1520.92215pt>
+File: figures/medloop.png Graphic file (type png)
+
+<use figures/medloop.png>
+Package pdftex.def Info: figures/medloop.png used on input line 498.
+(pdftex.def)             Requested size: 455.2979pt x 398.98117pt.
+
+
+LaTeX Warning: Reference `fig:insilicofig' on page 28 undefined on input line 4
+99.
+
+
+LaTeX Warning: Reference `fig:insilicofig' on page 28 undefined on input line 4
+99.
+
+
+LaTeX Warning: Reference `fig:insilicofig' on page 28 undefined on input line 4
+99.
+
+
+LaTeX Warning: Reference `fig:insilicofig' on page 28 undefined on input line 4
+99.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+<figures/medloopdelta.png, id=111, 1688.9499pt x 1520.92215pt>
+File: figures/medloopdelta.png Graphic file (type png)
+
+<use figures/medloopdelta.png>
+Package pdftex.def Info: figures/medloopdelta.png used on input line 505.
+(pdftex.def)             Requested size: 354.12144pt x 318.89252pt.
+
+
+LaTeX Warning: Reference `fig:insilicofig' on page 28 undefined on input line 5
+06.
+
+
+LaTeX Warning: Reference `fig:randomrnafig' on page 28 undefined on input line 
+506.
+
+
+LaTeX Warning: Reference `fig:insilicofig' on page 28 undefined on input line 5
+06.
+
+
+LaTeX Warning: Reference `fig:insilicofig' on page 28 undefined on input line 5
+06.
+
+
+LaTeX Warning: Reference `fig:randomrnafig' on page 28 undefined on input line 
+506.
+
+
+LaTeX Warning: Reference `fig:insilicofig' on page 28 undefined on input line 5
+06.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+<figures/mstable.png, id=112, 1689.6726pt x 1520.92215pt>
+File: figures/mstable.png Graphic file (type png)
+
+<use figures/mstable.png>
+Package pdftex.def Info: figures/mstable.png used on input line 513.
+(pdftex.def)             Requested size: 455.2979pt x 409.81902pt.
+
+
+LaTeX Warning: Reference `fig:insilicofig' on page 28 undefined on input line 5
+14.
+
+
+LaTeX Warning: Reference `fig:insilicofig' on page 28 undefined on input line 5
+14.
+
+
+LaTeX Warning: Reference `fig:insilicofig' on page 28 undefined on input line 5
+14.
+
+
+LaTeX Warning: Reference `fig:insilicofig' on page 28 undefined on input line 5
+14.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+<figures/hobartnerpredicted.png, id=113, 1631.49525pt x 1718.21925pt>
+File: figures/hobartnerpredicted.png Graphic file (type png)
+
+<use figures/hobartnerpredicted.png>
+Package pdftex.def Info: figures/hobartnerpredicted.png used on input line 523.
+
+(pdftex.def)             Requested size: 455.2979pt x 479.49883pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+<figures/medlooppredicted.png, id=114, 1631.49525pt x 1682.4456pt>
+File: figures/medlooppredicted.png Graphic file (type png)
+
+<use figures/medlooppredicted.png>
+Package pdftex.def Info: figures/medlooppredicted.png used on input line 531.
+(pdftex.def)             Requested size: 455.2979pt x 469.51556pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+<figures/medloopdeltapredicted.png, id=115, 1623.54555pt x 2256.63075pt>
+File: figures/medloopdeltapredicted.png Graphic file (type png)
+
+<use figures/medloopdeltapredicted.png>
+Package pdftex.def Info: figures/medloopdeltapredicted.png used on input line 5
+39.
+(pdftex.def)             Requested size: 455.2979pt x 632.81645pt.
+
+
+LaTeX Warning: Float too large for page by 57.75146pt on input line 542.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+<figures/mstablepredicted.png, id=116, 1625.71365pt x 2782.395pt>
+File: figures/mstablepredicted.png Graphic file (type png)
+
+<use figures/mstablepredicted.png>
+Package pdftex.def Info: figures/mstablepredicted.png used on input line 546.
+(pdftex.def)             Requested size: 303.53708pt x 519.49008pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+<figures/hobartnerseq.png, id=117, 379.05615pt x 112.0185pt>
+File: figures/hobartnerseq.png Graphic file (type png)
+
+<use figures/hobartnerseq.png>
+Package pdftex.def Info: figures/hobartnerseq.png used on input line 552.
+(pdftex.def)             Requested size: 303.53708pt x 89.70549pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+Overfull \hbox (3.994pt too wide) in paragraph at lines 567--567
+[]\OT1/cmr/m/n/12 Sequence
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 567--567
+\OT1/cmr/m/n/12 pre-dicted
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 567--567
+[]\OT1/cmr/m/n/12 Number
+ []
+
+
+Underfull \hbox (badness 7522) in paragraph at lines 567--567
+\OT1/cmr/m/n/12 of cor-rect
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 567--567
+[]\OT1/cmr/m/n/12 Percentage
+ []
+
+
+Underfull \hbox (badness 2326) in paragraph at lines 567--567
+\OT1/cmr/m/n/12 of weights
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 567--567
+\OT1/cmr/m/n/12 cor-rectly
+ []
+
+
+Overfull \hbox (105.4pt too wide) in paragraph at lines 565--590
+[][]
+ []
+
+
+Overfull \hbox (132.36745pt too wide) in paragraph at lines 593--601
+[][]
+ []
+
+[28] [29] [30 <./figures/statmodel.png>] [31 <./figures/structselect.png>]
+[32 <./figures/rf01125.png>] [33 <./figures/hobartner.png>] [34 <./figures/hoba
+rtnervalidation.png>] [35 <./figures/medloop.png>] [36 <./figures/medloopdelta.
+png>] [37 <./figures/mstable.png>] [38 <./figures/hobartnerpredicted.png>]
+[39 <./figures/medlooppredicted.png>] [40 <./figures/medloopdeltapredicted.png>
+] [41 <./figures/mstablepredicted.png>] [42 <./figures/hobartnerseq.png>]
+(./REEFFIT.aux)
+
+LaTeX Warning: There were undefined references.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+ ) 
+Here is how much of TeX's memory you used:
+ 4135 strings out of 494536
+ 57168 string characters out of 6167447
+ 168650 words of memory out of 5000000
+ 7309 multiletter control sequences out of 15000+600000
+ 11593 words of font info for 41 fonts, out of 8000000 for 9000
+ 319 hyphenation exceptions out of 8191
+ 38i,15n,32p,1501b,478s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/local/texlive/2013basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx1
+0.pfb></usr/local/texlive/2013basic/texmf-dist/fonts/type1/public/amsfonts/cm/c
+mbx12.pfb></usr/local/texlive/2013basic/texmf-dist/fonts/type1/public/amsfonts/
+cm/cmbxti10.pfb></usr/local/texlive/2013basic/texmf-dist/fonts/type1/public/ams
+fonts/cm/cmex10.pfb></usr/local/texlive/2013basic/texmf-dist/fonts/type1/public
+/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2013basic/texmf-dist/fonts/type1/pu
+blic/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2013basic/texmf-dist/fonts/type1
+/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2013basic/texmf-dist/fonts/ty
+pe1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2013basic/texmf-dist/fonts
+/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2013basic/texmf-dist/fo
+nts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2013basic/texmf-dist
+/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2013basic/texmf-di
+st/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2013basic/texm
+f-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2013basic/t
+exmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2013basi
+c/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2013
+basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb>
+Output written on REEFFIT.pdf (42 pages, 12552541 bytes).
+PDF statistics:
+ 232 PDF objects out of 1000 (max. 8388607)
+ 144 compressed objects within 2 object streams
+ 0 named destinations out of 1000 (max. 500000)
+ 66 words of extra memory for PDF output out of 10000 (max. 10000000)
+
